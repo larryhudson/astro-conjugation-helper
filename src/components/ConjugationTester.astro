@@ -1,0 +1,77 @@
+---
+import { infinitiveVerbs, persons } from "@src/constants";
+
+import { getRandomArrItem, lookupCorrectConjugation } from "@src/utils";
+import { getConjugationsForVerb } from "@src/wordreference";
+
+import Sentence from "@src/components/Sentence.astro";
+
+let error;
+
+const allowedConjugationTypeStrings =
+    Astro.url.searchParams.getAll("conjugations") || [];
+
+const verb = getRandomArrItem(infinitiveVerbs);
+const conjugationsForVerb = await getConjugationsForVerb({ verb });
+const helpUrl = `https://www.wordreference.com/fren/${encodeURIComponent(verb)}`;
+const person = getRandomArrItem(persons);
+
+const randomConjugationTypeString = getRandomArrItem(
+    allowedConjugationTypeStrings,
+);
+
+const [conjugationGroup, conjugationSubgroup] =
+    randomConjugationTypeString.split("__");
+
+const correctConjugation = lookupCorrectConjugation({
+    conjugationsForVerb,
+    person,
+    conjugationGroup,
+    conjugationSubgroup,
+});
+---
+
+<div>
+    <p>
+        Use the <strong>{conjugationGroup} - {conjugationSubgroup}</strong> form
+        of{" "}
+        <strong>
+            <a href={helpUrl}>{verb}</a>
+        </strong>{" "}
+        with the pronoun <strong>{person}</strong> to complete the sentence.
+    </p>
+    <Sentence
+        {verb}
+        {person}
+        {conjugationGroup}
+        {conjugationSubgroup}
+        {correctConjugation}
+    />
+    <details>
+        <summary>Show answer</summary>
+        <div>{correctConjugation}</div>
+    </details>
+</div>
+
+<script>
+    const answerInput = document.getElementById("answer-input");
+
+    answerInput.addEventListener("input", function (event) {
+        if (event.target.value === this.dataset.answer) {
+            this.style.backgroundColor = "lightgreen";
+        } else {
+            this.style.backgroundColor = "";
+        }
+    });
+</script>
+
+<style>
+    .question {
+        font-size: 2rem;
+    }
+
+    input {
+        font-size: inherit;
+        text-align: center;
+    }
+</style>

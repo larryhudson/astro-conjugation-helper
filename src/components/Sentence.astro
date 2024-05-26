@@ -1,0 +1,45 @@
+---
+import { generateSentence } from "@src/llm";
+
+const {
+    verb,
+    person,
+    conjugationGroup,
+    conjugationSubgroup,
+    correctConjugation,
+} = Astro.props;
+
+const randomSentence = await generateSentence({
+    verb,
+    person,
+    conjugationGroup,
+    conjugationSubgroup,
+    correctConjugation,
+});
+
+const [beforeConj, afterConj] = randomSentence.split("[CONJUGAISON]");
+---
+
+<div class="question">
+    <label>
+        {beforeConj}
+        <input
+            id="answer-input"
+            data-answer={correctConjugation}
+            type="text"
+            placeholder={verb}
+        />
+        {afterConj}
+    </label>
+</div>
+
+<style>
+    .question {
+        font-size: 2rem;
+    }
+
+    input {
+        font-size: inherit;
+        text-align: center;
+    }
+</style>

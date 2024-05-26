@@ -1,0 +1,31 @@
+---
+import { conjugationGroups } from "@src/constants";
+
+const chosenConjugationTypeStrings =
+    Astro.url.searchParams.getAll("conjugations") || [];
+---
+
+<form>
+    <h2>Choose your conjugations</h2>
+    {
+        conjugationGroups.map((group) => (
+            <fieldset>
+                <legend>{group.name}</legend>
+                {group.subgroups.map((subgroup) => (
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="conjugations"
+                            value={`${group.name}__${subgroup.name}`}
+                            checked={chosenConjugationTypeStrings.includes(
+                                `${group.name}__${subgroup.name}`,
+                            )}
+                        />
+                        {subgroup.name}
+                    </label>
+                ))}
+            </fieldset>
+        ))
+    }
+    <button type="submit">Start</button>
+</form>

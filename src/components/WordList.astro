@@ -1,0 +1,22 @@
+---
+const { infinitiveVerbs } = Astro.props;
+---
+
+<details>
+    <summary>View full word list</summary>
+    <div>
+        <ul>
+            {
+                infinitiveVerbs.map((verb) => (
+                    <li>
+                        <a
+                            href={`https://www.wordreference.com/fren/${encodeURIComponent(verb)}`}
+                        >
+                            {verb}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</details>
