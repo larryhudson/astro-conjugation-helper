@@ -13,3 +13,7 @@ form {
 button {
   font-size: 2rem;
 }
+
+input {
+  max-width: 100%;
+}
