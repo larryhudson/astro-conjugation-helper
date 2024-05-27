@@ -11,6 +11,8 @@ let error;
 const allowedConjugationTypeStrings =
     Astro.url.searchParams.getAll("conjugations") || [];
 
+const topic = Astro.url.searchParams.get("topic");
+
 const verb = getRandomArrItem(infinitiveVerbs);
 const conjugationsForVerb = await getConjugationsForVerb({ verb });
 const helpUrl = `https://www.wordreference.com/fren/${encodeURIComponent(verb)}`;
@@ -46,6 +48,7 @@ const correctConjugation = lookupCorrectConjugation({
         {conjugationGroup}
         {conjugationSubgroup}
         {correctConjugation}
+        {topic}
     />
     <div style="margin-bottom: 2rem">
         <button id="check-button">Check</button>
@@ -64,6 +67,15 @@ const correctConjugation = lookupCorrectConjugation({
 
     answerInput.addEventListener("input", function (event) {
         if (answerInput.value === "") {
+            answerInput.style.backgroundColor = "white";
+        }
+
+        if (
+            answerInput.value.toLowerCase() ===
+            answerInput.dataset.answer.toLowerCase()
+        ) {
+            answerInput.style.backgroundColor = "lightgreen";
+        } else {
             answerInput.style.backgroundColor = "white";
         }
     });

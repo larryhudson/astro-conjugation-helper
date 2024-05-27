@@ -7,6 +7,7 @@ const {
     conjugationGroup,
     conjugationSubgroup,
     correctConjugation,
+    topic,
 } = Astro.props;
 
 const randomSentence = await generateSentence({
@@ -15,6 +16,7 @@ const randomSentence = await generateSentence({
     conjugationGroup,
     conjugationSubgroup,
     correctConjugation,
+    topic,
 });
 
 const [beforeConj, afterConj] = randomSentence.split("[CONJUGAISON]");

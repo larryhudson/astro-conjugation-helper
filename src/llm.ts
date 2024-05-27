@@ -3,13 +3,16 @@ export async function generateSentence({
     person,
     conjugationGroup,
     conjugationSubgroup,
-    correctConjugation }: {
-        verb: string;
-        person: string;
-        conjugationGroup: string;
-        conjugationSubgroup: string;
-        correctConjugation: string;
-    }) {
+    correctConjugation,
+    topic
+}: {
+    verb: string;
+    person: string;
+    conjugationGroup: string;
+    conjugationSubgroup: string;
+    correctConjugation: string;
+    topic?: string
+}) {
 
     const llmPrompt = `Voici un verbe français :
 <verbe>${verb}</verbe>
@@ -26,7 +29,9 @@ Voici la conjugaison correcte du verbe pour cette personne et ce type de conjuga
 Veuillez utiliser la conjugaison correcte dans une phrase française simple. La phrase doit démontrer clairement l'utilisation correcte de la conjugaison donnée. 
 
 Écrivez uniquement la phrase, en remplaçant la conjugaison du verbe par [CONJUGAISON]. Ne remplacez pas le pronom personnel.
-`
+
+${topic ? `Utilisez ce sujet lors de la rédaction de la phrase :
+<sujet>${topic}</sujet>` : ''}`
 
     const llmResponse = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",

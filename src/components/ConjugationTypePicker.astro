@@ -3,6 +3,8 @@ import { conjugationGroups } from "@src/constants";
 
 const chosenConjugationTypeStrings =
     Astro.url.searchParams.getAll("conjugations") || [];
+
+const chosenTopic = Astro.url.searchParams.get("topic") || "";
 ---
 
 <form action="/test/">
@@ -27,5 +29,14 @@ const chosenConjugationTypeStrings =
             </fieldset>
         ))
     }
+    <h3>Choose a topic (optional)</h3>
+    <p>The AI will generate sentences related to this topic.</p>
+    <div>
+        <label>
+            Topic<br />
+            <input type="text" name="topic" value={chosenTopic} />
+        </label>
+    </div>
+
     <button type="submit">Start</button>
 </form>
