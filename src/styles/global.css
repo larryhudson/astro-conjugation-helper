@@ -1,0 +1,11 @@
+body {
+  font-family: sans-serif;
+  max-width: 48rem;
+  margin: 0 auto;
+  line-height: 1.5;
+  padding: 1rem;
+}
+
+form {
+  margin-top: 2rem;
+}

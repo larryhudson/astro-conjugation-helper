@@ -1,0 +1,18 @@
+---
+import Layout from "@src/components/Layout.astro";
+import ConjugationTester from "@src/components/ConjugationTester.astro";
+
+const allowedConjugationTypeStrings =
+	Astro.url.searchParams.getAll("conjugations") || [];
+
+if (allowedConjugationTypeStrings.length === 0) {
+	return Astro.redirect("/");
+}
+---
+
+<Layout>
+	<ConjugationTester />
+	<p>
+		You can <a href="/">go back to choose different conjugation types</a>.
+	</p>
+</Layout>

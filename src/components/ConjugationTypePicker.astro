@@ -5,7 +5,7 @@ const chosenConjugationTypeStrings =
     Astro.url.searchParams.getAll("conjugations") || [];
 ---
 
-<form>
+<form action="/test/">
     <h2>Choose your conjugations</h2>
     {
         conjugationGroups.map((group) => (

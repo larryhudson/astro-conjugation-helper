@@ -1,43 +1,8 @@
 ---
-import { infinitiveVerbs } from "@src/constants";
-
-import ConjugationTester from "@src/components/ConjugationTester.astro";
+import Layout from "@src/components/Layout.astro";
 import ConjugationTypePicker from "@src/components/ConjugationTypePicker.astro";
-import WordList from "@src/components/WordList.astro";
-
-const allowedConjugationTypeStrings =
-	Astro.url.searchParams.getAll("conjugations") || [];
-
-const shouldShowConjugationTester = allowedConjugationTypeStrings.length > 0;
 ---
 
-<html lang="fr">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Conjugation tester</h1>
-		{shouldShowConjugationTester && <ConjugationTester />}
-
-		<ConjugationTypePicker />
-
-		<WordList {infinitiveVerbs} />
-
-		<style>
-			body {
-				font-family: sans-serif;
-				max-width: 48rem;
-				margin: 0 auto;
-				line-height: 1.5;
-			}
-
-			form {
-				margin-top: 2rem;
-			}
-		</style>
-	</body>
-</html>
+<Layout>
+	<ConjugationTypePicker />
+</Layout>

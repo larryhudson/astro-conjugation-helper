@@ -47,26 +47,56 @@ const correctConjugation = lookupCorrectConjugation({
         {conjugationSubgroup}
         {correctConjugation}
     />
-    <details>
-        <summary>Show answer</summary>
-        <div>{correctConjugation}</div>
-    </details>
+    <div style="margin-bottom: 2rem">
+        <button id="check-button">Check</button>
+        <button id="clear-button">Clear</button>
+        <button id="show-answer-button">Show answer</button>
+    </div>
+
+    <button onclick="window.location.reload()">Another!</button>
 </div>
 
 <script>
     const answerInput = document.getElementById("answer-input");
+    const clearButton = document.getElementById("clear-button");
+    const checkButton = document.getElementById("check-button");
+    const showAnswerButton = document.getElementById("show-answer-button");
 
     answerInput.addEventListener("input", function (event) {
-        if (event.target.value === this.dataset.answer) {
-            this.style.backgroundColor = "lightgreen";
+        if (answerInput.value === "") {
+            answerInput.style.backgroundColor = "white";
+        }
+    });
+
+    showAnswerButton.addEventListener("click", function (event) {
+        answerInput.value = answerInput.dataset.answer;
+        answerInput.style.backgroundColor = "lightgreen";
+    });
+
+    clearButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        answerInput.value = "";
+        answerInput.style.backgroundColor = "white";
+        answerInput.focus();
+    });
+
+    checkButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (
+            answerInput.value.toLowerCase() ===
+            answerInput.dataset.answer.toLowerCase()
+        ) {
+            answerInput.style.backgroundColor = "lightgreen";
         } else {
-            this.style.backgroundColor = "";
+            answerInput.style.backgroundColor = "pink";
+            answerInput.focus();
         }
     });
 </script>
 
 <style>
-    .question {
+    .question,
+    button {
         font-size: 2rem;
     }
 
